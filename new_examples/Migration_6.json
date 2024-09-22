@@ -1,0 +1,15 @@
+{
+    "index": 6,
+    "tables": [
+        {
+            "old_key": "Test",
+            "new_name": "Empty",
+            "column_migrations": [
+                {
+                    "old_key": "OwnerName"
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}

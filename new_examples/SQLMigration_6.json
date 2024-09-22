@@ -1,0 +1,9 @@
+{
+    "migrationIndex": 6,
+    "sqlStatements": [
+        "CREATE TABLE NEW_CREATED_TABLE_Empty (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);",
+        "INSERT INTO NEW_CREATED_TABLE_Empty (ID) SELECT ID FROM Test;",
+        "DROP TABLE Test;",
+        "ALTER TABLE NEW_CREATED_TABLE_Empty RENAME TO Test;"
+    ]
+}

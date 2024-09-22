@@ -1,0 +1,36 @@
+{
+    "index": 4,
+    "tables": [
+        {
+            "old_key": "Pets",
+            "column_migrations": [
+                {
+                    "old_key": "ID"
+                },
+                {
+                    "old_key": "PetName"
+                },
+                {
+                    "old_key": "OwnerID"
+                }
+            ],
+            "foreign_key_migrations": [
+                {
+                    "old_key": "OwnerID->Owners.ID"
+                }
+            ]
+        },
+        {
+            "old_key": "AnimalHospitals",
+            "column_migrations": [
+                {
+                    "old_key": "ID"
+                },
+                {
+                    "old_key": "HospitalName"
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}

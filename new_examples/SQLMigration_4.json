@@ -1,0 +1,7 @@
+{
+    "migrationIndex": 4,
+    "sqlStatements": [
+        "DROP TABLE Pets;",
+        "DROP TABLE AnimalHospitals;"
+    ]
+}

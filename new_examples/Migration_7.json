@@ -1,0 +1,85 @@
+{
+    "index": 7,
+    "tables": [
+        {
+            "old_key": "Empty",
+            "new_name": "Owners",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "OwnerName",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        },
+        {
+            "new_name": "Pets",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "ID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "PRIMARY KEY AUTOINCREMENT",
+                            "NOT NULL"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "PetName",
+                        "type": "VARCHAR(255)",
+                        "constraints": []
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "OwnerID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": [
+                {
+                    "new_data": {
+                        "local_name": "OwnerID",
+                        "table_name": "Owners",
+                        "foreign_name": "ID"
+                    }
+                }
+            ]
+        },
+        {
+            "new_name": "AnimalHospitals",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "ID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "PRIMARY KEY AUTOINCREMENT"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "HospitalName",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}
