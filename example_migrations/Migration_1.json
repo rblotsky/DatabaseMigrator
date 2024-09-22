@@ -1,0 +1,32 @@
+{
+    "index": 1,
+    "tables": [
+        {
+            "old_key": "FirstTable",
+            "new_name": "FirstTable",
+            "column_migrations": [
+                {
+                    "old_key": "c",
+                    "new_data": {
+                        "name": "Lol_Updated_Name",
+                        "type": "INTEGER",
+                        "constraints": ["PRIMARY KEY AUTOINCREMENT", "NOT NULL"]
+                    }
+                }
+            ],
+            "foreign_key_migrations": [
+                {
+                    "old_key": "c->Second.Col",
+                    "new_data": {
+                        "local_name": "Lol_Updated_Name",
+                        "table_name": "Second",
+                        "foreign_name": "Col",
+                        "on_delete": "CASCADE",
+                        "on_update": "CASCADE"
+
+                    }
+                }
+            ]
+        }
+    ]
+}

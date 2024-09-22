@@ -1,0 +1,47 @@
+{
+    "index": 1,
+    "tables": [
+        {
+            "new_name": "Pets",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "ID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "PRIMARY KEY AUTOINCREMENT",
+                            "NOT NULL"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "PetName",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "OwnerID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": [
+                {
+                    "new_data": {
+                        "local_name": "OwnerID",
+                        "table_name": "Owners",
+                        "foreign_name": "ID"
+                    }
+                }
+            ]
+        }
+    ]
+}

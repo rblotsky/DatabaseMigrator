@@ -1,0 +1,15 @@
+{
+    "index": 5,
+    "tables": [
+        {
+            "old_key": "USERS",
+            "new_name": "USERS",
+            "column_migrations": [
+                {
+                    "old_key": "USER_ID"
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}

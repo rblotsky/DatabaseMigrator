@@ -1,0 +1,29 @@
+{
+    "index": 2,
+    "tables": [
+        {
+            "new_name": "AnimalHospitals",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "ID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "PRIMARY KEY AUTOINCREMENT"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "HospitalName",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}

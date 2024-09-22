@@ -1,0 +1,132 @@
+{
+    "index": 2,
+    "tables": [
+        {
+            "new_name": "HOUSEHOLDS",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "HOUSEHOLD_ID",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL",
+                            "PRIMARY KEY"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "Name",
+                        "type": "VARCHAR",
+                        "constraints": [
+                            "NOT NULL",
+                            "DEFAULT 'Individual'"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        },
+        {
+            "new_name": "USERS",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "USER_ID",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL",
+                            "PRIMARY KEY"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "Name",
+                        "type": "VARCHAR",
+                        "constraints": [
+                            "NOT NULL",
+                            "DEFAULT 'Daniels Friend'"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "HouseholdID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "Major",
+                        "type": "VARCHAR",
+                        "constraints": [
+                            "DEFAULT 'Bachelor of Computing'"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": [
+                {
+                    "new_data": {
+                        "local_name": "HouseholdID",
+                        "table_name": "HOUSEHOLDS",
+                        "foreign_name": "HOUSEHOLD_ID",
+                        "on_delete": "CASCADE",
+                        "on_update": "CASCADE"
+                    }
+                }
+            ]
+        },
+        {
+            "new_name": "MIGRATIONS_TRACKING_AUTOGEN",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "ID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "PRIMARY KEY AUTOINCREMENT",
+                            "DEFAULT 0"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "Version",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        },
+        {
+            "old_key": "FirstTable",
+            "column_migrations": [
+                {
+                    "old_key": "Lol_Updated_Name"
+                }
+            ],
+            "foreign_key_migrations": [
+                {
+                    "old_key": "Lol_Updated_Name->Second.Col"
+                }
+            ]
+        },
+        {
+            "old_key": "Second",
+            "column_migrations": [
+                {
+                    "old_key": "Col"
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}

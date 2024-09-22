@@ -1,0 +1,61 @@
+{
+    "tables": [
+        {
+            "name": "Owners",
+            "columns": [
+                {
+                    "name": "ID",
+                    "type": "INTEGER",
+                    "constraints": ["PRIMARY KEY AUTOINCREMENT", "NOT NULL"]
+                },
+                {
+                    "name": "OwnerName",
+                    "type": "VARCHAR(255)",
+                    "constraints": ["NOT NULL"]
+                }
+            ]
+        },
+        {
+            "name": "Pets",
+            "columns": [
+                {
+                    "name": "ID",
+                    "type": "INTEGER",
+                    "constraints": ["PRIMARY KEY AUTOINCREMENT", "NOT NULL"]
+                },
+                {
+                    "name": "PetName",
+                    "type": "VARCHAR(255)",
+                    "constraints": []
+                },
+                {
+                    "name": "OwnerID",
+                    "type": "INTEGER",
+                    "constraints": ["NOT NULL"]
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "local_name": "OwnerID",
+                    "table_name": "Owners",
+                    "foreign_name": "ID"
+                }
+            ]
+        },
+        {
+            "name": "AnimalHospitals",
+            "columns": [
+                {
+                    "name": "ID",
+                    "type": "INTEGER",
+                    "constraints": ["PRIMARY KEY AUTOINCREMENT"]
+                },
+                {
+                    "name": "HospitalName",
+                    "type": "VARCHAR(255)",
+                    "constraints": ["NOT NULL"]
+                }
+            ]
+        }
+    ]
+}

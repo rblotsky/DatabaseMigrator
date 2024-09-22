@@ -1,0 +1,57 @@
+{
+    "tables": [
+        {
+            "name": "HOUSEHOLDS",
+            "columns": [
+                {
+                    "name": "HOUSEHOLD_ID",
+                    "type": "VARCHAR(255)",
+                    "constraints": ["NOT NULL","PRIMARY KEY"]
+                },
+                {
+                    "name": "Name",
+                    "type": "VARCHAR",
+                    "constraints": ["NOT NULL"]
+                }
+            ]
+        },
+        {
+            "name": "USERS",
+            "columns": [
+                {
+                    "name": "USER_ID",
+                    "type": "VARCHAR(255)",
+                    "constraints": ["NOT NULL","PRIMARY KEY"]
+                },
+                {
+                    "name": "Name",
+                    "type": "VARCHAR",
+                    "constraints": ["NOT NULL"]
+                },
+                {
+                    "name": "HouseholdID",
+                    "type": "INTEGER",
+                    "constraints": ["NOT NULL"]
+                },
+                {
+                    "name": "Major",
+                    "type": "VARCHAR",
+                    "constraints": ["DEFAULT 'Bachelor of Computing'"]
+                },
+                {
+                    "name": "Pet",
+                    "type": "VARCHAR(255)"
+                }
+            ],
+            "foreign_keys": [
+                {
+                    "local_name": "HouseholdID",
+                    "table_name": "HOUSEHOLDS",
+                    "foreign_name": "HOUSEHOLD_ID",
+                    "on_delete": "CASCADE",
+                    "on_update": "CASCADE"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,46 @@
+{
+    "index": 7,
+    "tables": [
+        {
+            "old_key": "USERS",
+            "new_name": "HOUSEHOLDS",
+            "column_migrations": [],
+            "foreign_key_migrations": []
+        },
+        {
+            "old_key": "SYSTEM_USERS",
+            "new_name": "USERS",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "USER_ID",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL",
+                            "PRIMARY KEY"
+                        ]
+                    }
+                },
+                {
+                    "old_key": "Pets",
+                    "new_data": {
+                        "name": "Pet",
+                        "type": "VARCHAR(255)"
+                    }
+                }
+            ],
+            "foreign_key_migrations": [
+                {
+                    "old_key": "HouseholdID->USERS.HOUSEHOLD_ID",
+                    "new_data": {
+                        "local_name": "HouseholdID",
+                        "table_name": "HOUSEHOLDS",
+                        "foreign_name": "HOUSEHOLD_ID",
+                        "on_delete": "CASCADE",
+                        "on_update": "CASCADE"
+                    }
+                }
+            ]
+        }
+    ]
+}

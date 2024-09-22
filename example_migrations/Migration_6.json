@@ -1,0 +1,28 @@
+{
+    "index": 6,
+    "tables": [
+        {
+            "old_key": "HOUSEHOLDS",
+            "new_name": "USERS",
+            "column_migrations": [],
+            "foreign_key_migrations": []
+        },
+        {
+            "old_key": "USERS",
+            "new_name": "SYSTEM_USERS",
+            "column_migrations": [],
+            "foreign_key_migrations": [
+                {
+                    "old_key": "HouseholdID->HOUSEHOLDS.HOUSEHOLD_ID",
+                    "new_data": {
+                        "local_name": "HouseholdID",
+                        "table_name": "USERS",
+                        "foreign_name": "HOUSEHOLD_ID",
+                        "on_delete": "CASCADE",
+                        "on_update": "CASCADE"
+                    }
+                }
+            ]
+        }
+    ]
+}

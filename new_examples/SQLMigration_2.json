@@ -1,0 +1,6 @@
+{
+    "migrationIndex": 2,
+    "sqlStatements": [
+        "CREATE TABLE AnimalHospitals (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT,\n\tHospitalName VARCHAR(255) NOT NULL);"
+    ]
+}

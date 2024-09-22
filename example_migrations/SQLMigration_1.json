@@ -1,0 +1,9 @@
+{
+    "migrationIndex": 1,
+    "sqlStatements": [
+        "CREATE TABLE NEW_CREATED_TABLE_FirstTable (\n\tLol_Updated_Name INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tFOREIGN KEY (Lol_Updated_Name) REFERENCES Second(Col) ON UPDATE CASCADE ON DELETE CASCADE);",
+        "INSERT INTO NEW_CREATED_TABLE_FirstTable (Lol_Updated_Name) SELECT c FROM FirstTable;",
+        "DROP TABLE FirstTable;",
+        "ALTER TABLE NEW_CREATED_TABLE_FirstTable RENAME TO FirstTable;"
+    ]
+}

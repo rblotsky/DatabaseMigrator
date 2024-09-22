@@ -1,0 +1,18 @@
+{
+    "index": 4,
+    "tables": [
+        {
+            "old_key": "USERS",
+            "new_name": "USERS",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "Pets",
+                        "type": "VARCHAR(255)"
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}

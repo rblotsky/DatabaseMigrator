@@ -1,0 +1,32 @@
+{
+    "sql_migrations": [
+        {
+            "migrationIndex": 0,
+            "sqlStatements": [
+                "CREATE TABLE Owners (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tOwnerName VARCHAR(255) NOT NULL);",
+                "CREATE TABLE MIGRATIONS_TRACKING_AUTOGEN (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 0,\n\tVersion VARCHAR(255) NOT NULL);"
+            ]
+        },
+        {
+            "migrationIndex": 1,
+            "sqlStatements": [
+                "CREATE TABLE Pets (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tPetName VARCHAR(255) NOT NULL,\n\tOwnerID INTEGER NOT NULL,\n\tFOREIGN KEY (OwnerID) REFERENCES Owners(ID));"
+            ]
+        },
+        {
+            "migrationIndex": 2,
+            "sqlStatements": [
+                "CREATE TABLE AnimalHospitals (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT,\n\tHospitalName VARCHAR(255) NOT NULL);"
+            ]
+        },
+        {
+            "migrationIndex": 3,
+            "sqlStatements": [
+                "CREATE TABLE NEW_CREATED_TABLE_Pets (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tPetName VARCHAR(255),\n\tOwnerID INTEGER NOT NULL,\n\tFOREIGN KEY (OwnerID) REFERENCES Owners(ID));",
+                "INSERT INTO NEW_CREATED_TABLE_Pets (PetName,ID,OwnerID) SELECT PetName,ID,OwnerID FROM Pets;",
+                "DROP TABLE Pets;",
+                "ALTER TABLE NEW_CREATED_TABLE_Pets RENAME TO Pets;"
+            ]
+        }
+    ]
+}

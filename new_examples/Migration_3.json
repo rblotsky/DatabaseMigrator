@@ -1,0 +1,20 @@
+{
+    "index": 3,
+    "tables": [
+        {
+            "old_key": "Pets",
+            "new_name": "Pets",
+            "column_migrations": [
+                {
+                    "old_key": "PetName",
+                    "new_data": {
+                        "name": "PetName",
+                        "type": "VARCHAR(255)",
+                        "constraints": []
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}

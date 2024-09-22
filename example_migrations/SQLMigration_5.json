@@ -1,0 +1,9 @@
+{
+    "migrationIndex": 5,
+    "sqlStatements": [
+        "CREATE TABLE NEW_CREATED_TABLE_USERS (\n\tName VARCHAR NOT NULL,\n\tHouseholdID INTEGER NOT NULL,\n\tMajor VARCHAR DEFAULT 'Bachelor of Computing',\n\tPets VARCHAR(255),\n\tFOREIGN KEY (HouseholdID) REFERENCES HOUSEHOLDS(HOUSEHOLD_ID) ON UPDATE CASCADE ON DELETE CASCADE);",
+        "INSERT INTO NEW_CREATED_TABLE_USERS (Name,HouseholdID,Major,Pets) SELECT Name,HouseholdID,Major,Pets FROM USERS;",
+        "DROP TABLE USERS;",
+        "ALTER TABLE NEW_CREATED_TABLE_USERS RENAME TO USERS;"
+    ]
+}

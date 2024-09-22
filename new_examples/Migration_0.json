@@ -1,0 +1,55 @@
+{
+    "index": 0,
+    "tables": [
+        {
+            "new_name": "Owners",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "ID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "PRIMARY KEY AUTOINCREMENT",
+                            "NOT NULL"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "OwnerName",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        },
+        {
+            "new_name": "MIGRATIONS_TRACKING_AUTOGEN",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "ID",
+                        "type": "INTEGER",
+                        "constraints": [
+                            "PRIMARY KEY AUTOINCREMENT",
+                            "DEFAULT 0"
+                        ]
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "Version",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}
