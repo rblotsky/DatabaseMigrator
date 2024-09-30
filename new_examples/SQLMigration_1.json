@@ -2,5 +2,6 @@
     "migrationIndex": 1,
     "sqlStatements": [
         "CREATE TABLE Pets (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tPetName VARCHAR(255) NOT NULL,\n\tOwnerID INTEGER NOT NULL,\n\tFOREIGN KEY (OwnerID) REFERENCES Owners(ID));"
-    ]
+    ],
+    "migrationName": null
 }

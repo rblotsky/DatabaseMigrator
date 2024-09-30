@@ -5,5 +5,6 @@
         "INSERT INTO NEW_CREATED_TABLE_Pets (PetName,ID,OwnerID) SELECT PetName,ID,OwnerID FROM Pets;",
         "DROP TABLE Pets;",
         "ALTER TABLE NEW_CREATED_TABLE_Pets RENAME TO Pets;"
-    ]
+    ],
+    "migrationName": null
 }

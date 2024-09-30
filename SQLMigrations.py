@@ -11,16 +11,24 @@ NEW_TABLE_PREFIX = "NEW_CREATED_TABLE_"
 ### CLASSES ###
 class SQLMigration:
     migrationIndex: int
+    migrationName: str
     sqlStatements: list[str]
 
 
-    def __init__(self, index, sql):
+    def __init__(self, index, sql, name=None):
         self.migrationIndex = index
         self.sqlStatements = sql
+        self.migrationName = name
 
 
     def __str__(self):
-        outputText = f"SQL Migration #{self.migrationIndex}:"
+
+        outputText = ""
+        if self.migrationName == None:
+            outputText = f"SQL Migration #{self.migrationIndex}:"
+        else:
+            outputText = f"SQL Migration #{self.migrationIndex} ('{self.migrationName}'):"
+
         for sql in self.sqlStatements:
             outputText += f"\n{sql}"
 
@@ -238,7 +246,7 @@ def create_sql_for_schema_migration(migration: SchemaMigration, oldSchema: Datab
     for tableMigration in addMigrations:
         sqlMigrations.append(write_sql_create_table(assemble_table_from_migration(None, tableMigration)))
 
-    return SQLMigration(migration.migrationIndex, sqlMigrations)
+    return SQLMigration(migration.migrationIndex, sqlMigrations, migration.migrationName)
             
 
 

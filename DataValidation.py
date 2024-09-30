@@ -27,7 +27,7 @@ VALID_DATATYPES = {
 
 VALID_CONSTRAINTS = [
     r"PRIMARY KEY(\s+.*)?",
-    r"NOT NULL",
+    r"(?:NOT)?\s*NULL",
     r"DEFAULT\s+.*",
     r"UNIQUE",
     r"CHECK\s+.*",

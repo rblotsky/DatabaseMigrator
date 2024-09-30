@@ -1,0 +1,22 @@
+{
+    "index": 8,
+    "tables": [
+        {
+            "old_key": "AnimalHospitals",
+            "new_name": "AnimalHospitals",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "Location",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NOT NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ],
+    "name": "rblotsky"
+}

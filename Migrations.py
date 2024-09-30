@@ -5,7 +5,8 @@ from ColouredText import *
 ### CONSTANTS ###
 MIGRATIONS_TABLE = Table("MIGRATIONS_TRACKING_AUTOGEN", 
                          [Column("ID", "INTEGER", ["PRIMARY KEY AUTOINCREMENT", "DEFAULT 0"]),
-                          Column("Version", "VARCHAR(255)", ["NOT NULL"])],
+                          Column("Version", "VARCHAR(255)", ["NOT NULL"]),
+                          Column("Name", "VARCHAR(255)", ["NULL"])],
                           []
                           )
 
@@ -353,17 +354,20 @@ class TableMigration(Migration):
 
 class SchemaMigration:
     migrationIndex: int
+    migrationName: str
     tableMigrations: list[TableMigration]
 
     ## Initialization and Serialization
-    def __init__(self, newIndex: int, tables: list[TableMigration] ):
+    def __init__(self, newIndex: int, tables: list[TableMigration], newName: str = None  ):
         self.migrationIndex = newIndex
         self.tableMigrations = tables
+        self.migrationName = newName
 
 
     def from_dict(dictionary: dict):
         return SchemaMigration(dictionary.get("index", -1),
-                               [TableMigration.from_dict(table) for table in dictionary.get("tables", [])])
+                               [TableMigration.from_dict(table) for table in dictionary.get("tables", [])],
+                               dictionary.get("name", None))
     
 
     def to_dict(self):
@@ -371,6 +375,7 @@ class SchemaMigration:
 
         if self.migrationIndex != None: returnDict["index"] = self.migrationIndex
         if self.tableMigrations != None: returnDict["tables"] = [table.to_dict() for table in self.tableMigrations]
+        if self.migrationName != None: returnDict["name"] = self.migrationName
 
         return returnDict    
 

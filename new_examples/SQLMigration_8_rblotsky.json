@@ -1,0 +1,10 @@
+{
+    "migrationIndex": 8,
+    "sqlStatements": [
+        "CREATE TABLE NEW_CREATED_TABLE_AnimalHospitals (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT,\n\tHospitalName VARCHAR(255) NOT NULL,\n\tLocation VARCHAR(255) NOT NULL);",
+        "INSERT INTO NEW_CREATED_TABLE_AnimalHospitals (ID,HospitalName) SELECT ID,HospitalName FROM AnimalHospitals;",
+        "DROP TABLE AnimalHospitals;",
+        "ALTER TABLE NEW_CREATED_TABLE_AnimalHospitals RENAME TO AnimalHospitals;"
+    ],
+    "migrationName": "rblotsky"
+}

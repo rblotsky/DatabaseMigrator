@@ -5,19 +5,22 @@
             "sqlStatements": [
                 "CREATE TABLE Owners (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tOwnerName VARCHAR(255) NOT NULL);",
                 "CREATE TABLE MIGRATIONS_TRACKING_AUTOGEN (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 0,\n\tVersion VARCHAR(255) NOT NULL);"
-            ]
+            ],
+            "migrationName": null
         },
         {
             "migrationIndex": 1,
             "sqlStatements": [
                 "CREATE TABLE Pets (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tPetName VARCHAR(255) NOT NULL,\n\tOwnerID INTEGER NOT NULL,\n\tFOREIGN KEY (OwnerID) REFERENCES Owners(ID));"
-            ]
+            ],
+            "migrationName": null
         },
         {
             "migrationIndex": 2,
             "sqlStatements": [
                 "CREATE TABLE AnimalHospitals (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT,\n\tHospitalName VARCHAR(255) NOT NULL);"
-            ]
+            ],
+            "migrationName": null
         },
         {
             "migrationIndex": 3,
@@ -26,21 +29,24 @@
                 "INSERT INTO NEW_CREATED_TABLE_Pets (PetName,ID,OwnerID) SELECT PetName,ID,OwnerID FROM Pets;",
                 "DROP TABLE Pets;",
                 "ALTER TABLE NEW_CREATED_TABLE_Pets RENAME TO Pets;"
-            ]
+            ],
+            "migrationName": null
         },
         {
             "migrationIndex": 4,
             "sqlStatements": [
                 "DROP TABLE Pets;",
                 "DROP TABLE AnimalHospitals;"
-            ]
+            ],
+            "migrationName": null
         },
         {
             "migrationIndex": 5,
             "sqlStatements": [
                 "ALTER TABLE Owners RENAME TO PRE_MIGRATION_TABLE_Owners;",
                 "ALTER TABLE PRE_MIGRATION_TABLE_Owners RENAME TO Test;"
-            ]
+            ],
+            "migrationName": null
         },
         {
             "migrationIndex": 6,
@@ -49,7 +55,8 @@
                 "INSERT INTO NEW_CREATED_TABLE_Empty (ID) SELECT ID FROM Test;",
                 "DROP TABLE Test;",
                 "ALTER TABLE NEW_CREATED_TABLE_Empty RENAME TO Test;"
-            ]
+            ],
+            "migrationName": null
         },
         {
             "migrationIndex": 7,
@@ -60,7 +67,28 @@
                 "ALTER TABLE NEW_CREATED_TABLE_Owners RENAME TO Empty;",
                 "CREATE TABLE Pets (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tPetName VARCHAR(255),\n\tOwnerID INTEGER NOT NULL,\n\tFOREIGN KEY (OwnerID) REFERENCES Owners(ID));",
                 "CREATE TABLE AnimalHospitals (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT,\n\tHospitalName VARCHAR(255) NOT NULL);"
-            ]
+            ],
+            "migrationName": null
+        },
+        {
+            "migrationIndex": 8,
+            "sqlStatements": [
+                "CREATE TABLE NEW_CREATED_TABLE_AnimalHospitals (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT,\n\tHospitalName VARCHAR(255) NOT NULL,\n\tLocation VARCHAR(255) NOT NULL);",
+                "INSERT INTO NEW_CREATED_TABLE_AnimalHospitals (ID,HospitalName) SELECT ID,HospitalName FROM AnimalHospitals;",
+                "DROP TABLE AnimalHospitals;",
+                "ALTER TABLE NEW_CREATED_TABLE_AnimalHospitals RENAME TO AnimalHospitals;"
+            ],
+            "migrationName": "rblotsky"
+        },
+        {
+            "migrationIndex": 9,
+            "sqlStatements": [
+                "CREATE TABLE NEW_CREATED_TABLE_MIGRATIONS_TRACKING_AUTOGEN (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT DEFAULT 0,\n\tVersion VARCHAR(255) NOT NULL,\n\tName VARCHAR(255) NULL);",
+                "INSERT INTO NEW_CREATED_TABLE_MIGRATIONS_TRACKING_AUTOGEN (ID,Version) SELECT ID,Version FROM MIGRATIONS_TRACKING_AUTOGEN;",
+                "DROP TABLE MIGRATIONS_TRACKING_AUTOGEN;",
+                "ALTER TABLE NEW_CREATED_TABLE_MIGRATIONS_TRACKING_AUTOGEN RENAME TO MIGRATIONS_TRACKING_AUTOGEN;"
+            ],
+            "migrationName": "rblotsky"
         }
     ]
 }

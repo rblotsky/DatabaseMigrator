@@ -3,5 +3,6 @@
     "sqlStatements": [
         "ALTER TABLE Owners RENAME TO PRE_MIGRATION_TABLE_Owners;",
         "ALTER TABLE PRE_MIGRATION_TABLE_Owners RENAME TO Test;"
-    ]
+    ],
+    "migrationName": null
 }

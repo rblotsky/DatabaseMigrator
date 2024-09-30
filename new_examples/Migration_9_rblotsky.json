@@ -1,0 +1,22 @@
+{
+    "index": 9,
+    "tables": [
+        {
+            "old_key": "MIGRATIONS_TRACKING_AUTOGEN",
+            "new_name": "MIGRATIONS_TRACKING_AUTOGEN",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "Name",
+                        "type": "VARCHAR(255)",
+                        "constraints": [
+                            "NULL"
+                        ]
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ],
+    "name": "rblotsky"
+}

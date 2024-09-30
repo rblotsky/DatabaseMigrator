@@ -3,5 +3,6 @@
     "sqlStatements": [
         "DROP TABLE Pets;",
         "DROP TABLE AnimalHospitals;"
-    ]
+    ],
+    "migrationName": null
 }

@@ -54,6 +54,16 @@
                     "name": "HospitalName",
                     "type": "VARCHAR(255)",
                     "constraints": ["NOT NULL"]
+                },
+                {
+                    "name": "Location",
+                    "type": "VARCHAR(255)",
+                    "constraints": ["NOT NULL"]
+                },
+                {
+                    "name": "Type",
+                    "type": "VARCHAR(255)",
+                    "constraints": []
                 }
             ]
         }

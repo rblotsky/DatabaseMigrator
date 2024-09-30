@@ -82,10 +82,10 @@ def get_change_migrations(oldDict: dict, newObjects: list[IMigratable], objectTy
                 print(pad_ok(f"Assuming {objectType.__name__} '{new.get_key()}' is a NEW {objectType.__name__}."))
                 createdMigrations.append(create_object_migration(None, new, objectType))
             
-        # If no old names match this name, check if it's a rename or new table
+        # If no old names match this name, check if it's a rename or new object
         else:
 
-            # Checks for old objects that have the same contents
+            # Checks for old objects that have the same contents that don't exist anymore
             foundIdenticalOld = False
             for old in oldDict.values():
                 if new.compare_contents(old):

@@ -7,5 +7,6 @@
         "ALTER TABLE NEW_CREATED_TABLE_Owners RENAME TO Empty;",
         "CREATE TABLE Pets (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,\n\tPetName VARCHAR(255),\n\tOwnerID INTEGER NOT NULL,\n\tFOREIGN KEY (OwnerID) REFERENCES Owners(ID));",
         "CREATE TABLE AnimalHospitals (\n\tID INTEGER PRIMARY KEY AUTOINCREMENT,\n\tHospitalName VARCHAR(255) NOT NULL);"
-    ]
+    ],
+    "migrationName": null
 }

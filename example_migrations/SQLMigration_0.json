@@ -1,7 +1,0 @@
-{
-    "migrationIndex": 0,
-    "sqlStatements": [
-        "CREATE TABLE FirstTable (\n\tc INTEGER,\n\tFOREIGN KEY (c) REFERENCES Second(Col) ON UPDATE CASCADE ON DELETE CASCADE);",
-        "CREATE TABLE Second (\n\tCol INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL);"
-    ]
-}

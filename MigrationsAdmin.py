@@ -13,8 +13,8 @@ import SQLMigrations
 import pprint
 
 ### CONSTANTS ###
-MIGRATIONS_FILE_REGEX = r'Migration_([1-9][0-9]*|0)\.json'
-MIGRATIONS_SQL_FILE_REGEX = r'SQLMigration_([1-9][0-9]*|0)\.json'
+MIGRATIONS_FILE_REGEX = r'Migration_([1-9][0-9]*|0)(_\w+)?\.json'
+MIGRATIONS_SQL_FILE_REGEX = r'SQLMigration_([1-9][0-9]*|0)(_\w+)?\.json'
 SQL_MIGRATIONS_COMBINED_FILE = "SQLMigration_Combined.json"
 DEBUG_ON = False
 
@@ -37,18 +37,24 @@ def print_command_step(content: str):
 
 
 ### FILE HANDLING ###
-def create_migration_filename(migrationIndex: int) -> str:
-    return f"Migration_{migrationIndex}.json"
+def create_migration_filename(migration: SchemaMigration) -> str:
+    if migration.migrationName == None:
+        return f"Migration_{migration.migrationIndex}.json"
+    
+    return f"Migration_{migration.migrationIndex}_{migration.migrationName}.json"
 
 
-def create_sqlmigration_filename(migrationIndex: int) -> str:
-    return f"SQLMigration_{migrationIndex}.json"
+def create_sqlmigration_filename(migration: SchemaMigration) -> str:
+    if migration.migrationName == None:
+        return f"SQLMigration_{migration.migrationIndex}.json"
+    
+    return f"SQLMigration_{migration.migrationIndex}_{migration.migrationName}.json"
 
 
 def write_sqlmigration_file(folder: str, sqlMigration: SQLMigrations.SQLMigration):
 
     # Writes a new SQL Migration file
-    newFile = open(os.path.join(folder, create_sqlmigration_filename(sqlMigration.migrationIndex)), "w")
+    newFile = open(os.path.join(folder, create_sqlmigration_filename(sqlMigration)), "w")
     newFile.write(json.dumps(sqlMigration.__dict__, indent=4))
     newFile.close()
 
@@ -186,7 +192,11 @@ def create_new_migration(dbSchemaFilePath: str, migrationsFolder: str):
         print(newMigration)
         if ask_yes_no("Save this migration?"):
             
-            newFile = open(os.path.join(migrationsFolder, create_migration_filename(newMigration.migrationIndex)),  "w")
+            if ask_yes_no("Give this migration a name? Use this if you're using a branched repository."):
+                newMigrationName = ask_for_input("Write a unique name here (alphanumeric chars only, no spaces. Underscore allowed.)")
+                newMigration.migrationName = newMigrationName
+
+            newFile = open(os.path.join(migrationsFolder, create_migration_filename(newMigration)),  "w")
             newFile.write(json.dumps(newMigration.to_dict(), indent=4))
             newFile.close()
 
@@ -268,7 +278,7 @@ def create_sql_migrations(migrationsFolder: str):
 
     for migration in foundMigrations:
         
-        if not os.path.exists(os.path.join(migrationsFolder, create_sqlmigration_filename(migration.migrationIndex))):
+        if not os.path.exists(os.path.join(migrationsFolder, create_sqlmigration_filename(migration))):
             print(pad_ok(f"Writing SQL Migration for Migration #{migration.migrationIndex}."))
             createdSqlMigration = SQLMigrations.create_sql_for_schema_migration(migration, runningSchema)
             print(createdSqlMigration)
