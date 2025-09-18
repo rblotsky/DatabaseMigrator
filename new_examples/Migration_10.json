@@ -1,0 +1,26 @@
+{
+    "index": 10,
+    "tables": [
+        {
+            "old_key": "AnimalHospitals",
+            "new_name": "AnimalHospitals",
+            "column_migrations": [
+                {
+                    "new_data": {
+                        "name": "Type",
+                        "type": "VARCHAR(255)",
+                        "constraints": []
+                    }
+                },
+                {
+                    "new_data": {
+                        "name": "District",
+                        "type": "VARCHAR(255)",
+                        "constraints": []
+                    }
+                }
+            ],
+            "foreign_key_migrations": []
+        }
+    ]
+}

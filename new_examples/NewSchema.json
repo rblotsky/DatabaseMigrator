@@ -64,6 +64,11 @@
                     "name": "Type",
                     "type": "VARCHAR(255)",
                     "constraints": []
+                },
+                {
+                    "name": "District",
+                    "type": "VARCHAR(255)",
+                    "constraints": []
                 }
             ]
         }

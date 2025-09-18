@@ -49,8 +49,7 @@ You should **NEVER** remove migrations that have already been applied to your li
 
 If you made changes that have yet to be applied to a live database, and you want to delete them, follow these steps:
 1. Remove the "Migration_X.json" and "SQLMigration_X.json" file associated with it (these are found in your migrations folder).
-2. Go to "SQLMigration_Combined.json" and remove the list item for the migration (this has the exact same data as the SQLMigration file)
-3. Repeat steps 1 and 2 for all migrations *after* the one you removed.
+2. Repeat step 1 for all migrations *after* the one you removed.
 
 ### Manually Editing Migrations
 Make sure you know how migration files are structured before making any manual changes. If you manually edit a migration file, make sure to delete and re-generate its associated SQLMigration file.
@@ -169,20 +168,5 @@ This file stores SQL statements to perform a migration on a database table. Thes
         "migrationIndex": index of the migration,
         "sqlStatements: [
             "statement", "statement", ...
-        ]
-    }
-
-### SQLMigration_Combined JSON File
-This is just a file containing a list of SQLMigrations, as in the above file. They are stored in a list called `"sql_migrations"`. This file is **automatically regenerated** every time `sqlmigrations` is run, using the full list of SQL migrations that are present. It should not be used to store edits.
-
-    {
-        "sql_migrations": [
-            {
-                "migrationIndex": index of the migration,
-                "sqlStatements: [
-                    "statement", "statement", ...
-                ]
-            },
-            ...
         ]
     }

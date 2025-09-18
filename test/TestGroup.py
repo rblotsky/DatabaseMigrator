@@ -7,9 +7,9 @@ class TestGroup:
         self.name = name
         self.funcs = funcs
 
-
     def add_func(self, func):
         self.funcs.append(func)
+
 
 ### DECORATORS ###
 def group_test(groups: dict, name: str, active: bool):
@@ -27,7 +27,7 @@ def group_test(groups: dict, name: str, active: bool):
                 groups[name] = groupUsed
 
         return func
-    
+
     return decorator_group_test
 
 

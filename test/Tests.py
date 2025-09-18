@@ -35,5 +35,3 @@ def run_test_group(testGroup: TestGroup):
         print(pad_success(f"No errors! Passed all {totalTests} tests!"))
 
     print("")
-
-    

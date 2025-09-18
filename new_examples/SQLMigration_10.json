@@ -1,0 +1,10 @@
+SQL Migration #10:
+CREATE TABLE NEW_CREATED_TABLE_AnimalHospitals (
+	ID INTEGER PRIMARY KEY AUTOINCREMENT,
+	HospitalName VARCHAR(255) NOT NULL,
+	Location VARCHAR(255) NOT NULL,
+	Type VARCHAR(255),
+	District VARCHAR(255));
+INSERT INTO NEW_CREATED_TABLE_AnimalHospitals (ID,HospitalName,Location) SELECT ID,HospitalName,Location FROM AnimalHospitals;
+DROP TABLE AnimalHospitals;
+ALTER TABLE NEW_CREATED_TABLE_AnimalHospitals RENAME TO AnimalHospitals;

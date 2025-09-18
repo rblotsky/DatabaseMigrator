@@ -7,19 +7,16 @@ OLD_TABLE_PREFIX = "PRE_MIGRATION_TABLE_"
 NEW_TABLE_PREFIX = "NEW_CREATED_TABLE_"
 
 
-
 ### CLASSES ###
 class SQLMigration:
     migrationIndex: int
     migrationName: str
     sqlStatements: list[str]
 
-
     def __init__(self, index, sql, name=None):
         self.migrationIndex = index
         self.sqlStatements = sql
         self.migrationName = name
-
 
     def __str__(self):
 
@@ -27,7 +24,9 @@ class SQLMigration:
         if self.migrationName == None:
             outputText = f"SQL Migration #{self.migrationIndex}:"
         else:
-            outputText = f"SQL Migration #{self.migrationIndex} ('{self.migrationName}'):"
+            outputText = (
+                f"SQL Migration #{self.migrationIndex} ('{self.migrationName}'):"
+            )
 
         for sql in self.sqlStatements:
             outputText += f"\n{sql}"
@@ -36,19 +35,18 @@ class SQLMigration:
         return outputText
 
 
-
 ### FUNCTIONS ###
 def assemble_table_from_migration(oldTable: Table, migration: TableMigration) -> Table:
-    
+
     # Doesn't assemble anything if it's a remove migration
     if migration.is_remove():
         return None
-    
+
     # Makes a copy of the old table, then migrates it using the migration
     newTable = oldTable.copy() if oldTable != None else Table(migration.newName, [], [])
     migration.run_edit_on_old_object(newTable)
     migration.migrate_table(newTable)
-    
+
     # Returns the created table
     return newTable
 
@@ -58,7 +56,7 @@ def write_sql_create_table(table: Table) -> str:
 
     # Inserts the columns - they start without a comma, and end without one
     for i in range(len(table.columns)):
-        
+
         colData = table.columns[i]
 
         colText = f"\n\t{colData.name} {colData.datatype}"
@@ -66,7 +64,7 @@ def write_sql_create_table(table: Table) -> str:
         if colData.constraints != None:
             for constraint in colData.constraints:
                 colText += f" {constraint}"
-        
+
         # Adds a comma at the start if it's not the first element
         if i != 0:
             colText = "," + colText
@@ -75,11 +73,11 @@ def write_sql_create_table(table: Table) -> str:
 
     # Inserts the foreign keys - they start with a comma, and end without one
     for i in range(len(table.foreignKeys)):
-        
+
         fKeyData = table.foreignKeys[i]
 
         fKeyText = f",\n\tFOREIGN KEY ({fKeyData.localName}) REFERENCES {fKeyData.tableName}({fKeyData.externalName})"
-        
+
         if fKeyData.onUpdate != None and len(fKeyData.onUpdate) != 0:
             fKeyText += f" ON UPDATE {fKeyData.onUpdate}"
 
@@ -98,9 +96,12 @@ def write_sql_remove_table(oldName: str) -> str:
 def write_sql_rename_table(oldName: str, newName: str) -> str:
     return f"ALTER TABLE {oldName} RENAME TO {newName};"
 
-def get_transferrable_columns_for_complex_migration(oldTable: Table, colMigrations: list[ColumnMigration]) -> list[tuple]:
 
-    # Transferrable columns are any EDITED or UNCHANGED columns. 
+def get_transferrable_columns_for_complex_migration(
+    oldTable: Table, colMigrations: list[ColumnMigration]
+) -> list[tuple]:
+
+    # Transferrable columns are any EDITED or UNCHANGED columns.
 
     # First, we find the EDITED columns in the table migration and track them. Also
     # track all migrations' old keys to help find unchanged columns after.
@@ -110,7 +111,7 @@ def get_transferrable_columns_for_complex_migration(oldTable: Table, colMigratio
     for colMigration in colMigrations:
         if colMigration.is_edit():
             editMigrations.append(colMigration)
-        
+
         keyedColMigrations[colMigration.oldKey] = colMigration
 
     # Now, we get all unchanged columns (those whose key isn't present in the migrations dict)
@@ -123,7 +124,9 @@ def get_transferrable_columns_for_complex_migration(oldTable: Table, colMigratio
     # Assemble a list of tuples with their old and new names
     transferrableColumns = []
     for editMigration in editMigrations:
-        transferrableColumns.append((editMigration.oldKey, editMigration.newColumnData.name))
+        transferrableColumns.append(
+            (editMigration.oldKey, editMigration.newColumnData.name)
+        )
 
     for unchangedColumn in unchangedColumns:
         transferrableColumns.append((unchangedColumn.name, unchangedColumn.name))
@@ -132,7 +135,9 @@ def get_transferrable_columns_for_complex_migration(oldTable: Table, colMigratio
     return transferrableColumns
 
 
-def create_sql_for_complex_migration(oldTable: Table, tableMigration: TableMigration) -> list[str]:
+def create_sql_for_complex_migration(
+    oldTable: Table, tableMigration: TableMigration
+) -> list[str]:
     # NOTE: The order of operations is important here. Do not move things around without reason.
     # This is because renaming the old table will break foreign key references to it.
     # (by renaming it, all foreign keys are also renamed - when we then delete it, there are no longer
@@ -141,7 +146,7 @@ def create_sql_for_complex_migration(oldTable: Table, tableMigration: TableMigra
     # 1. Create the new table with a name prefix
     # 2. Copy all maintained columns from the old table
     # 3. Drop the old table
-    # 4. Rename the new table 
+    # 4. Rename the new table
 
     # Creates the new table with a prefix
     sqlCommands = []
@@ -151,8 +156,10 @@ def create_sql_for_complex_migration(oldTable: Table, tableMigration: TableMigra
 
     # Gets all columns that can be copied into the new table, and creates an INSERT INTO
     # SQL statement to perform the copy
-    transferrableColumns = get_transferrable_columns_for_complex_migration(oldTable, tableMigration.colMigrations)
-    
+    transferrableColumns = get_transferrable_columns_for_complex_migration(
+        oldTable, tableMigration.colMigrations
+    )
+
     # Skips the insert statement if there are no transferrable columns
     if len(transferrableColumns) > 0:
 
@@ -160,7 +167,7 @@ def create_sql_for_complex_migration(oldTable: Table, tableMigration: TableMigra
         selectColumns = ""
 
         for i in range(len(transferrableColumns)):
-            
+
             oldName = transferrableColumns[i][0]
             newName = transferrableColumns[i][1]
             if i != 0:
@@ -177,9 +184,9 @@ def create_sql_for_complex_migration(oldTable: Table, tableMigration: TableMigra
     sqlCommands.append(write_sql_remove_table(oldTable.name))
 
     # Renames the new table
-    # NOTE: This seems like its using the wrong order but it's right - we're 
+    # NOTE: This seems like its using the wrong order but it's right - we're
     # renaming the new, prefixed table, to the old, properly named table
-    sqlCommands.append(write_sql_rename_table(newTable.name, oldTable.name)) 
+    sqlCommands.append(write_sql_rename_table(newTable.name, oldTable.name))
 
     return sqlCommands
 
@@ -206,7 +213,9 @@ def group_table_migrations(migration: SchemaMigration) -> tuple:
     return (addMigrations, removeMigrations, pureRenameMigrations, complexMigrations)
 
 
-def create_sql_for_schema_migration(migration: SchemaMigration, oldSchema: DatabaseSchema) -> SQLMigration:
+def create_sql_for_schema_migration(
+    migration: SchemaMigration, oldSchema: DatabaseSchema
+) -> SQLMigration:
 
     # Splits migrations into groups
     groupedMigrations: tuple = group_table_migrations(migration)
@@ -219,15 +228,19 @@ def create_sql_for_schema_migration(migration: SchemaMigration, oldSchema: Datab
     # accessing
     sqlMigrations: list[str] = []
     oldTablesDict = Table.create_object_dict(oldSchema.tables)
-        
+
     # NOTE: DO NOT change the order of the following operations. They must happen in this order
     # to avoid name conflicts at any stage of the migration.
 
     # 1. Goes through PURE RENAME migrations, creates SQL to add prefixes to their old names
-    # This is to prevent name conflicts if a renamed or new table references a name previous used by 
+    # This is to prevent name conflicts if a renamed or new table references a name previous used by
     # a table that gets renamed later.
     for tableMigration in pureRenameMigrations:
-        sqlMigrations.append(write_sql_rename_table(tableMigration.oldKey, OLD_TABLE_PREFIX+tableMigration.oldKey))
+        sqlMigrations.append(
+            write_sql_rename_table(
+                tableMigration.oldKey, OLD_TABLE_PREFIX + tableMigration.oldKey
+            )
+        )
 
     # 2. Goes through REMOVE migrations, adds SQL to remove them
     for tableMigration in removeMigrations:
@@ -235,24 +248,27 @@ def create_sql_for_schema_migration(migration: SchemaMigration, oldSchema: Datab
 
     # 3. Goes through PURE RENAME migrations, adds SQL to rename them
     for tableMigration in pureRenameMigrations:
-        sqlMigrations.append(write_sql_rename_table(OLD_TABLE_PREFIX+tableMigration.oldKey, tableMigration.newName))
+        sqlMigrations.append(
+            write_sql_rename_table(
+                OLD_TABLE_PREFIX + tableMigration.oldKey, tableMigration.newName
+            )
+        )
 
     # 4. Goes through COMPLEX migrations, extends migrations with extra migrations for them
     for tableMigration in complexMigrations:
-        sqlMigrations.extend(create_sql_for_complex_migration(oldTablesDict[tableMigration.oldKey], tableMigration))
-    
+        sqlMigrations.extend(
+            create_sql_for_complex_migration(
+                oldTablesDict[tableMigration.oldKey], tableMigration
+            )
+        )
+
     # 5. Goes through ADD migrations, adds SQL to create them - this must happen at the end so all
     # renames and complex migrations can happen first
     for tableMigration in addMigrations:
-        sqlMigrations.append(write_sql_create_table(assemble_table_from_migration(None, tableMigration)))
+        sqlMigrations.append(
+            write_sql_create_table(assemble_table_from_migration(None, tableMigration))
+        )
 
-    return SQLMigration(migration.migrationIndex, sqlMigrations, migration.migrationName)
-            
-
-
-        
-    
-
-
-
-
+    return SQLMigration(
+        migration.migrationIndex, sqlMigrations, migration.migrationName
+    )
